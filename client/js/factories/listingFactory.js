@@ -1,11 +1,11 @@
 angular.module('listings', []).factory('Listings', function($http) {
   var methods = {
     getAll: function() {
-      return $http.get('http://localhost:8080/api/listings');
+      return $http.get(window.location.origin+'/api/listings');
     },
 	
 	create: function(listing) {
-	  return $http.post('http://localhost:8080/api/listings', listing);
+	  return $http.post(window.location.origin+'/api/listings', listing);
     }, 
 
     delete: function(id) {
@@ -13,7 +13,7 @@ angular.module('listings', []).factory('Listings', function($http) {
         return result of HTTP delete method
        */
 	   
-	   return $http.delete('http://localhost:8080/api/listings/'+id);
+	   return $http.delete(window.location.origin+'/api/listings/'+id);
 
     },
 	
@@ -21,7 +21,7 @@ angular.module('listings', []).factory('Listings', function($http) {
 	 put: function(id) {
 	  
 	   
-	   return $http.put('http://localhost:8080/api/listings/'+id);
+	   return $http.put(window.location.origin+'/api/listings/'+id);
 
     }
 	

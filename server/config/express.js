@@ -22,7 +22,7 @@ module.exports.init = function() {
   
   /**TODO
   Serve static files */
-app.use('/',express.static('client'));
+app.use('/',express.static('client')); //has a built in next() function
   
   
 
@@ -33,8 +33,8 @@ app.use('/api/listings',listingsRouter);
 
   /**TODO 
   Go to homepage for all routes not specified */ 
-    app.all('/*',function(req,res,next){
-	 res.redirect('http://localhost:8080/');
+    app.use('/*',function(req,res,next){
+	 res.redirect('/');
   });
   
   
