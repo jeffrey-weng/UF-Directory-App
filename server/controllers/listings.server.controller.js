@@ -38,11 +38,27 @@ exports.read = function(req, res) {
 
 /* Update a listing */
 exports.update = function(req, res) {
-  var listing = req.listing;
+  var listing = req.listing; //this is the listing to be updated
 
   /** TODO **/
   /* Replace the article's properties with the new properties found in req.body */
   /* Save the article */
+  
+  Listing.findById(listing._id,function(err,listing){
+	  if(err) throw err;
+	  
+	  listing.name=req.body.name;
+	  listing.address=req.body.address;
+	  listing.code=req.body.code;
+	  
+	  listing.save(function(err){
+		  if(err)throw err;
+		  
+		  res.json(listing);
+		  console.log('Listing saved successfully!');
+		  
+	  });
+  });
 };
 
 /* Delete a listing */
@@ -51,12 +67,32 @@ exports.delete = function(req, res) {
 
   /** TODO **/
   /* Remove the article */
+  
+  Listing.findOneAndRemove({name:listing.name},function(err){
+	  if(err){
+		  console.log("KILL");
+		  throw err;
+	  }	  
+	  console.log('Listing deleted!');
+	  
+  });
+  
+  res.send("Listing deleted!");
+  
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res) {
   /** TODO **/
   /* Your code here */
+  
+  Listing.find({}, function(err, listings) {
+  if (err) throw err;
+
+ 
+  res.json(listings);
+});
+  
 };
 
 /* 

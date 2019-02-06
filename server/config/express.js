@@ -8,7 +8,7 @@ var path = require('path'),
 
 module.exports.init = function() {
   //connect to database
-  mongoose.connect(config.db.uri);
+  mongoose.connect('mongodb://jeff456:Sivirzix#1@ds217125.mlab.com:17125/listings');
 
   //initialize app
   var app = express();
@@ -22,14 +22,22 @@ module.exports.init = function() {
   
   /**TODO
   Serve static files */
+app.use('/',express.static('client'));
+  
   
 
   /**TODO 
   Use the listings router for requests to the api */
 
+app.use('/api/listings',listingsRouter);
 
   /**TODO 
   Go to homepage for all routes not specified */ 
+    app.all('/*',function(req,res,next){
+	 res.redirect('http://localhost:8080/');
+  });
+  
+  
 
   return app;
 };  
